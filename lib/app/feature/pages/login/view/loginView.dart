@@ -15,132 +15,137 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Obx(
-        () => Scaffold(
-            backgroundColor: Colors.blue,
-            body: Container(
-              alignment: Alignment.center,
-              color: Colors.blue,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    buildImage(),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    buildWelcomeText(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 25, right: 25, bottom: 80),
-                      child: Container(
-                          color: Colors.transparent,
-                          child: Container(
-                            decoration: buildContainerDecoration(),
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                if (loginController.getRegister.isTrue)
+        () => RefreshIndicator(
+          onRefresh: loginController.getUser,
+          child: Scaffold(
+              backgroundColor: Colors.blue,
+              body: Container(
+                alignment: Alignment.center,
+                color: Colors.blue,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      buildImage(),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      buildWelcomeText(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 25, right: 25, bottom: 80),
+                        child: Container(
+                            color: Colors.transparent,
+                            child: Container(
+                              decoration: buildContainerDecoration(),
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  if (loginController.getRegister.isTrue)
+                                    BuildTextFormField(
+                                      changed:
+                                          loginController.namesurnameChanged,
+                                      obscureBool:
+                                          loginController.showPassword.value,
+                                      text: "İsim Soyisim",
+                                      prefixIcon: const Icon(
+                                        Icons.people,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  const MySize(),
                                   BuildTextFormField(
-                                    changed: loginController.namesurnameChanged,
-                                    obscureBool:
-                                        loginController.showPassword.value,
-                                    text: "İsim Soyisim",
+                                    changed: loginController.emailChanged,
+                                    text: "E Posta",
                                     prefixIcon: const Icon(
-                                      Icons.people,
+                                      Icons.mail,
                                       color: Colors.black,
                                     ),
+                                    error: loginController.errorText.value,
                                   ),
-                                const MySize(),
-                                BuildTextFormField(
-                                  changed: loginController.emailChanged,
-                                  text: "E Posta",
-                                  prefixIcon: const Icon(
-                                    Icons.mail,
-                                    color: Colors.black,
-                                  ),
-                                  error: loginController.errorText.value,
-                                ),
-                                const MySize(),
-                                BuildTextFormField(
-                                  text: "Şifre",
-                                  changed: loginController.passwordChanged,
-                                  prefixIcon: const Icon(
-                                    Icons.key,
-                                    color: Colors.black,
-                                  ),
-                                  suffixIcon: IconButton(
+                                  const MySize(),
+                                  BuildTextFormField(
+                                    text: "Şifre",
+                                    changed: loginController.passwordChanged,
+                                    prefixIcon: const Icon(
+                                      Icons.key,
                                       color: Colors.black,
+                                    ),
+                                    suffixIcon: IconButton(
+                                        color: Colors.black,
+                                        onPressed: () {
+                                          loginController.showPasswordFunc();
+                                        },
+                                        icon: loginController
+                                                .showPassword.isTrue
+                                            ? const Icon(
+                                                Icons.remove_red_eye_sharp)
+                                            : const Icon(Icons.visibility_off)),
+                                  ),
+                                  const MySize(),
+                                  if (loginController.getRegister.isTrue)
+                                    BuildTextFormField(
+                                      text: "Telefon Numarası",
+                                      changed:
+                                          loginController.phoneNumberChanged,
+                                      prefixIcon: const Icon(
+                                        Icons.phone,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  if (loginController.getRegister.isFalse)
+                                    TextButton(
+                                      child: const Text("Şifremi Unuttum"),
                                       onPressed: () {
-                                        loginController.showPasswordFunc();
+                                        Get.to(ForgotScreen());
                                       },
-                                      icon: loginController.showPassword.isTrue
-                                          ? const Icon(
-                                              Icons.remove_red_eye_sharp)
-                                          : const Icon(Icons.visibility_off)),
-                                ),
-                                const MySize(),
-                                if (loginController.getRegister.isTrue)
-                                  BuildTextFormField(
-                                    text: "Telefon Numarası",
-                                    changed: loginController.phoneNumberChanged,
-                                    prefixIcon: const Icon(
-                                      Icons.phone,
-                                      color: Colors.black,
                                     ),
-                                  ),
-                                if (loginController.getRegister.isFalse)
-                                  TextButton(
-                                    child: const Text("Şifremi Unuttum"),
+                                  ElevatedButton(
+                                    child: loginController.getRegister.isFalse
+                                        ? const Text("Giriş yap")
+                                        : const Text("Kayıt Ol"),
                                     onPressed: () {
-                                      Get.to(ForgotScreen());
+                                      if (loginController.getRegister.isFalse) {
+                                        loginController.getUser();
+                                      } else if (loginController
+                                          .getRegister.isTrue) {
+                                        loginController.addUserLogin(UserLogin(
+                                            isLogin: "1",
+                                            email: loginController.eMail.value,
+                                            password:
+                                                loginController.password.value,
+                                            nameSurname: loginController
+                                                .nameSurname.value,
+                                            phoneNumber: loginController
+                                                .phoneNumber.value));
+                                      }
                                     },
                                   ),
-                                ElevatedButton(
-                                  child: loginController.getRegister.isFalse
-                                      ? const Text("Giriş yap")
-                                      : const Text("Kayıt Ol"),
-                                  onPressed: () {
-                                    if (loginController.getRegister.isFalse) {
-                                      loginController.getUser();
-                                    } else if (loginController
-                                        .getRegister.isTrue) {
-                                      loginController.isLogin.value == "1";
-                                      loginController.addUserLogin(UserLogin(
-                                          isLogin:
-                                              loginController.isLogin.value,
-                                          email: loginController.eMail.value,
-                                          password:
-                                              loginController.password.value,
-                                          nameSurname:
-                                              loginController.nameSurname.value,
-                                          phoneNumber: loginController
-                                              .phoneNumber.value));
-                                    }
-                                  },
-                                ),
-                                TextButton(
-                                  child: loginController.getRegister.isFalse
-                                      ? const Text("Kayıt Ol")
-                                      : const Text(
-                                          "Zaten bir hesabınız var mı?"),
-                                  onPressed: () {
-                                    loginController.registerWidget();
-                                    debugPrint(loginController.getRegister.value
-                                        .toString());
-                                  },
-                                ),
-                              ],
-                            ),
-                          )),
-                    )
-                  ],
+                                  TextButton(
+                                    child: loginController.getRegister.isFalse
+                                        ? const Text("Kayıt Ol")
+                                        : const Text(
+                                            "Zaten bir hesabınız var mı?"),
+                                    onPressed: () {
+                                      loginController.registerWidget();
+                                      debugPrint(loginController
+                                          .getRegister.value
+                                          .toString());
+                                    },
+                                  ),
+                                ],
+                              ),
+                            )),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            )),
+              )),
+        ),
       ),
     );
   }

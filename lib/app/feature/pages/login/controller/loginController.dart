@@ -25,22 +25,11 @@ var userList = <UserLogin>[].obs;
     super.onInit();
   }
 
-  @override
-  void onClose() {
-    // TODO: implement onClose
-    super.onClose();
-  }
-
-  @override
-  void onReady() {
-    // TODO: implement onReady
-    super.onReady();
-  }
 
   Future<void> getUser() async {
     var resultUser = databaseHelper.getUsers();
     await resultUser.then((data) {
-      this.userList.value = data;
+      userList.value = data;
 
       if (isLogin.value == "1") {
        

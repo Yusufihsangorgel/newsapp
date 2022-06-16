@@ -1,32 +1,40 @@
 import 'package:json_annotation/json_annotation.dart';
 
-
 part 'userModel.g.dart';
 
 @JsonSerializable()
 class UserLogin {
-  
-  late String isLogin;
-  late String email;
-  late String password;
-  late String nameSurname;
-  late String phoneNumber;
-  UserLogin({required this.isLogin, required this.email, required this.password,required this.nameSurname,required this.phoneNumber});
-  UserLogin.withId(this.isLogin, this.email, this.password);
+   String? isLogin;
+   String?  email;
+   String?  password;
+   String?  nameSurname;
+   String?  phoneNumber;
+  UserLogin(
+      {required this.isLogin,
+      required this.email,
+      required this.password,
+      required this.nameSurname,
+      required this.phoneNumber});
+
+  UserLogin.withId({required this.isLogin, required this.email, required this.password});
+
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
     map["isLogin"] = isLogin;
     map["username"] = email;
     map["password"] = password;
+    map["nameSurname"] = nameSurname;
+    map["phoneNumber"] = phoneNumber;
+
     return map;
   }
 
   UserLogin.fromMap(Map<String, dynamic> map) {
-    this.isLogin = map["isLogin"];
-    this.email = map["username"];
-    this.password = map["password"];
-    this.password = map["nameSurname"];
-    this.password = map["phoneNumber"];
+    isLogin = map["isLogin"];
+    email = map["username"];
+    password = map["password"];
+    nameSurname = map["nameSurname"];
+    phoneNumber = map["phoneNumber"];
   }
   UserLogin.fromJson(Map<String, dynamic> json) {
     isLogin = json['isLogin'];

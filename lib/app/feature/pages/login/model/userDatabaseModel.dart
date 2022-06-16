@@ -1,69 +1,73 @@
-
 import 'package:newsapp/app/feature/pages/login/model/userModel.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-
 class DatabaseHelperLogin {
   static Database? _database;
-  String usersTable = "usersLoginTableYusuf";
-  String isLogin = "isLogin";
-  String username = "username";
-  String password = "password";
-  String nameSurname = "NameSurname";
-  String phoneNumber = "phoneNumber";
-//database kontrol
+  final String _usersTable = "usersNewsLoginTable";
+  final String _isLogin = "isLogin";
+  final String _username = "username";
+  final String _password = "password";
+  final String _nameSurname = "NameSurname";
+  final String _phoneNumber = "phoneNumber";
+
+  @override
   Future<Database?> get database async {
-    if (database == null) {
+    if (_database == null) {
       _database = await initializeDatabase();
     } else {}
-    return database;
+    return _database;
   }
 
-  //data path ve open data
-  Future<Database> initializeDatabase() async {
+
+  @override
+   Future<Database> initializeDatabase() async {
     String databasePath =
-        join(await getDatabasesPath(), "$usersTable.db");
+        join(await getDatabasesPath(), "$_usersTable.db");
     var userDatabase =
         await openDatabase(databasePath, version: 1, onCreate: createDatabase);
     return userDatabase;
   }
-
   //tablo olusturma
+  @override
   void createDatabase(Database database, int version) async {
     await database.execute(
-        "Create table  $usersTable ($isLogin text ,  $username text, $password text, $nameSurname text,$phoneNumber text)");
+        "Create table  $_usersTable ($_isLogin text ,  $_username text, $_password text, $_nameSurname text,$_phoneNumber text)");
   }
 
-  // tum userlari sorgulama
+
   Future<List<UserLogin>> getUsers() async {
+    print("çalıştım");
     Database? database = await this.database;
-    var result = await database?.query(usersTable);
+    var result = await database?.query(_usersTable);
+    print("buyur knk " + result.toString());
     return List.generate(result!.length, (index) {
+
       return UserLogin.fromMap(result[index]);
     });
   }
 
-//yeni verir atarken kullaniyoruz. Insert
+
+  @override
   Future insert(UserLogin user) async {
     Database? database = await this.database;
-    var result = await database!.insert(usersTable, user.toMap());
+    var result = await database!.insert(_usersTable, user.toMap());
     return result;
   }
 
-//Veri yenileme
+
+  @override
   Future update(UserLogin user) async {
     Database? database = await this.database;
-    var result = await database!.update(usersTable, user.toMap());
+    var result = await database!.update(_usersTable, user.toMap());
     return result;
   }
 
-//veri silme
+
+  @override
   Future delete(int id) async {
     Database? database = await this.database;
     var result =
-        await database!.rawDelete("delete from $usersTable where id = $id ");
+        await database!.rawDelete("delete from $_usersTable where id = $id ");
   }
 }
-
-

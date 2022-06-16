@@ -1,8 +1,7 @@
 
 
-import 'package:newsapp/app/core/database/databaseModel.dart';
 
-class News extends  DatabaseModel<News>{
+class News {
   String? title;
   String? author;
   String? publishedDate;
