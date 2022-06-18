@@ -1,25 +1,21 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
+import 'package:newsapp/app/feature/pages/home/controller/homeController.dart';
 import 'package:newsapp/app/feature/pages/home/model/newsModel.dart';
 
-class NewsServices {
+class NewsServices extends HomeController {
   static var dio = Dio();
-
+  // final HomeController homeController = Get.put(HomeController());
+  @override
   static Future<List<News>?> getNews() async {
     var baseUrl = "https://free-news.p.rapidapi.com/v1/search";
-    var params = <String, String>{'q': "Elon Musk", 'lang': "en"};
+    var params = <String, String>{'q': search.value, 'lang': lang.value};
     var headers = {
       "x-rapidapi-host": "8ad5d90d72msh7bf606d6993cb80p1f5a9fjsn1242d0cc7448",
       "x-rapidapi-key": "free-news.p.rapidapi.com"
     };
-    var response = await dio.get("https://free-news.p.rapidapi.com/v1/search",
-        queryParameters: <String, String>{'q': "Elon Musk", 'lang': "en"},
-        options: Options(headers: {
-          "x-rapidapi-host":
-              "8ad5d90d72msh7bf606d6993cb80p1f5a9fjsn1242d0cc7448",
-          "x-rapidapi-key": "free-news.p.rapidapi.com"
-        }));
 
     try {
       var response = await dio.get(baseUrl,
@@ -42,5 +38,6 @@ class NewsServices {
         print(e.message);
       }
     }
+    return null;
   }
 }

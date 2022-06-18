@@ -1,6 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
 
 
 
+@JsonSerializable()
 class News {
   String? title;
   String? author;
@@ -84,11 +86,4 @@ class News {
     data['_id'] = this.sId;
     return data;
   }
-  
-  @override
-  News fromJson(Map<String, dynamic> json) {
-    // TODO: implement fromJson
-    throw UnimplementedError();
-  }
 }
-

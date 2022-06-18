@@ -4,19 +4,17 @@ part 'userModel.g.dart';
 
 @JsonSerializable()
 class UserLogin {
-   String? isLogin;
-   String?  email;
-   String?  password;
-   String?  nameSurname;
-   String?  phoneNumber;
+  String? isLogin;
+  String? email;
+  String? password;
+  String? nameSurname;
+  String? phoneNumber;
   UserLogin(
       {required this.isLogin,
       required this.email,
       required this.password,
       required this.nameSurname,
       required this.phoneNumber});
-
-  UserLogin.withId({required this.isLogin, required this.email, required this.password});
 
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
