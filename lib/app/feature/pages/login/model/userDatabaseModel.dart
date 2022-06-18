@@ -48,6 +48,20 @@ class DatabaseHelperLogin {
   }
 
 
+  Future<UserLogin?> getLoginUser(String email, String password) async {
+    var dbClient = await database;
+    var res = await dbClient!.rawQuery("SELECT * FROM $_usersTable WHERE "
+        "$_username = '$email' AND "
+        "$_password = '$password'");
+
+    if (res.length > 0) {
+      return UserLogin.fromMap(res.first);
+    }
+
+    return null;
+  }
+
+
   @override
   Future insert(UserLogin user) async {
     Database? database = await this.database;

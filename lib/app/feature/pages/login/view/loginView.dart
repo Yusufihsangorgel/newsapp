@@ -110,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                                         : const Text("Kayıt Ol"),
                                     onPressed: () {
                                       if (loginController.getRegister.isFalse) {
-                                        loginController.getUser();
+                                       loginController.login();
                                       } else if (loginController
                                           .getRegister.isTrue) {
                                         loginController.addUserLogin(UserLogin(

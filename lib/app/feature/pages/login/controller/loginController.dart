@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
+import 'package:get/get_navigation/src/dialog/dialog_route.dart';
 import 'package:newsapp/app/feature/pages/login/model/userDatabaseModel.dart';
 import 'package:newsapp/app/feature/pages/login/model/userModel.dart';
 import 'package:newsapp/app/routes/app_pages.dart';
 
 class LoginController extends GetxController {
-DatabaseHelperLogin databaseHelper = DatabaseHelperLogin();
-var userList = <UserLogin>[].obs;
-
+  DatabaseHelperLogin databaseHelper = DatabaseHelperLogin();
+  var userList = <UserLogin>[].obs;
 
   var eMail = "blabla@gmail.com".obs;
   var nameSurname = "nameSurname".obs;
@@ -14,7 +14,7 @@ var userList = <UserLogin>[].obs;
   var password = "1".obs;
   var isLogin = "0".obs;
   var showPassword = true.obs;
- RxnString errorText = RxnString(null);
+  RxnString errorText = RxnString(null);
   var getRegister = false.obs;
 
   @override
@@ -25,25 +25,44 @@ var userList = <UserLogin>[].obs;
     super.onInit();
   }
 
-
   Future<void> getUser() async {
     var resultUser = databaseHelper.getUsers();
     await resultUser.then((data) {
       userList.value = data;
 
       if (isLogin.value == "1") {
-       
-       Get.toNamed(AppRoutes.Read);
+        Get.toNamed(AppRoutes.Favorite);
       }
       print("Kullanici Login Durumu ${isLogin.value}");
     });
   }
 
-void addUserLogin(UserLogin user) async {
+  void addUserLogin(UserLogin user) async {
     await databaseHelper.insert(user);
     print("kayıt oldu la");
   }
 
+  void login() async {
+    if (eMail.isEmpty) {
+      Get.snackbar("Error", "Please Enter User ID");
+    } else if (password.isEmpty) {
+      Get.snackbar("Error", "Please Enter Password");
+    } else {
+      await databaseHelper
+          .getLoginUser(eMail.value, password.value)
+          .then((userData) {
+        if (userData != null) {
+          Get.toNamed(AppRoutes.Home);
+          Get.snackbar("Success", "Giriş Başarılı");
+        } else {
+          Get.snackbar("Error", "User Not Found");
+        }
+      }).catchError((error) {
+        print(error);
+        Get.snackbar("Error", "Login Fail");
+      });
+    }
+  }
 
   void showPasswordFunc() {
     if (showPassword.isTrue) {
@@ -91,6 +110,7 @@ void addUserLogin(UserLogin user) async {
   void namesurnameChanged(String val) {
     nameSurname.value = val;
   }
+
   void phoneNumberChanged(String val) {
     phoneNumber.value = val;
   }
