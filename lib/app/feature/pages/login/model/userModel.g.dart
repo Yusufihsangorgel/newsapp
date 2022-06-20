@@ -7,11 +7,11 @@ part of 'userModel.dart';
 // **************************************************************************
 
 UserLogin _$UserLoginFromJson(Map<String, dynamic> json) => UserLogin(
-      isLogin: json['isLogin'] as String,
-      email: json['email'] as String,
-      password: json['password'] as String,
-      nameSurname: json['nameSurname'] as String,
-      phoneNumber: json['phoneNumber'] as String,
+      isLogin: json['isLogin'] as String?,
+      email: json['email'] as String?,
+      password: json['password'] as String?,
+      nameSurname: json['nameSurname'] as String?,
+      phoneNumber: json['phoneNumber'] as String?,
     );
 
 Map<String, dynamic> _$UserLoginToJson(UserLogin instance) => <String, dynamic>{

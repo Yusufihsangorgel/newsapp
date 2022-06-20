@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-
+part 'newsModel.g.dart';
 
 @JsonSerializable()
 class News {
@@ -43,47 +43,26 @@ class News {
       this.dScore,
       this.sId});
 
-  News.fromJson(Map<String, dynamic> json) {
+  factory News.fromJson(Map<String, dynamic> json) => _$NewsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NewsToJson(this);
+
+  News.fromMap(Map<String, dynamic> json) {
     title = json['title'];
-    author = json['author'];
-    publishedDate = json['published_date'];
-    publishedDatePrecision = json['published_date_precision'];
     link = json['link'];
     cleanUrl = json['clean_url'];
     summary = json['summary'];
-    rights = json['rights'];
-    rank = json['rank'];
-    topic = json['topic'];
-    country = json['country'];
-    language = json['language'];
-    authors = json['authors'].cast<String>();
     media = json['media'];
-    isOpinion = json['is_opinion'];
-    twitterAccount = json['twitter_account'];
-    dScore = json['_score'];
     sId = json['_id'];
   }
-
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
-    data['author'] = this.author;
-    data['published_date'] = this.publishedDate;
-    data['published_date_precision'] = this.publishedDatePrecision;
-    data['link'] = this.link;
-    data['clean_url'] = this.cleanUrl;
-    data['summary'] = this.summary;
-    data['rights'] = this.rights;
-    data['rank'] = this.rank;
-    data['topic'] = this.topic;
-    data['country'] = this.country;
-    data['language'] = this.language;
-    data['authors'] = this.authors;
-    data['media'] = this.media;
-    data['is_opinion'] = this.isOpinion;
-    data['twitter_account'] = this.twitterAccount;
-    data['_score'] = this.dScore;
-    data['_id'] = this.sId;
+    data['title'] = title;
+    data['link'] = link;
+    data['clean_url'] = cleanUrl;
+    data['summary'] = summary;
+    data['media'] = media;
+    data['_id'] = sId;
     return data;
   }
 }

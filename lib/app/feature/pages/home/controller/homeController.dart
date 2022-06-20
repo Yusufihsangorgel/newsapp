@@ -1,14 +1,18 @@
 import 'package:get/get.dart';
+import 'package:newsapp/app/feature/pages/home/model/newsDatabaseModel.dart';
 import 'package:newsapp/app/feature/pages/home/model/newsModel.dart';
 import 'package:newsapp/app/feature/pages/home/services/newsService.dart';
 
 class HomeController extends GetxController {
+  DatabaseHelperNews databaseHelper = DatabaseHelperNews();
   var search = "Elon Musk".obs;
   var lang = "en".obs;
   var isLoading = true.obs;
   var isError = false.obs;
 
+
   var newsList = <News>[].obs;
+  var favoriteNewsList = <News>[].obs;
 
   @override
   void onInit() {
@@ -16,7 +20,7 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  void getNewsList() async {
+  void getApiNewsList() async {
     isLoading(true);
     try {
       var news = await NewsServices.getNews();
@@ -29,4 +33,17 @@ class HomeController extends GetxController {
       print(e);
     }
   }
+
+
+Future<void> getDbNewsList() async {
+    var resultUser = databaseHelper.getNewsDb();
+    await resultUser.then((data) {
+      favoriteNewsList.value = data;
+
+        print("Favori News Listesi ${favoriteNewsList}");
+    });
+  }
+
+
+
 }
