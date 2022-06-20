@@ -17,6 +17,8 @@ class LoginController extends GetxController {
   RxnString errorText = RxnString(null);
   var getRegister = false.obs;
 
+
+
   @override
   void onInit() {
     debounce<String>(eMail, validations,

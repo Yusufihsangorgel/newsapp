@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/app/feature/helpers/emailValidate.dart';
 
 class BuildTextFormField extends StatelessWidget {
   void Function(String) changed;
@@ -22,6 +23,15 @@ class BuildTextFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 30, right: 30),
       child: TextFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter $text';
+          }
+          if (text == "Email" && !validateEmail(value)) {
+            return 'Please Enter Valid Email';
+          }
+          return null;
+        },
         onChanged: changed,
         keyboardType: TextInputType.text,
         obscureText: obscureBool ?? false,

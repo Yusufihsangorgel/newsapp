@@ -10,7 +10,6 @@ class HomeController extends GetxController {
   var isLoading = true.obs;
   var isError = false.obs;
 
-
   var newsList = <News>[].obs;
   var favoriteNewsList = <News>[].obs;
 
@@ -34,16 +33,24 @@ class HomeController extends GetxController {
     }
   }
 
-
-Future<void> getDbNewsList() async {
+  Future<void> getDbNewsList() async {
     var resultUser = databaseHelper.getNewsDb();
     await resultUser.then((data) {
       favoriteNewsList.value = data;
 
-        print("Favori News Listesi ${favoriteNewsList}");
+      print("Favori News Listesi ${favoriteNewsList}");
     });
   }
 
+  void addFavoriteNews(News news) async {
+    await databaseHelper.insert(news);
+    print("favorilere eklendi");
+  }
 
+  void deleteFavoriteNews(News news) async {
+    String? delId = news.sId;
 
+ 
+    
+  }
 }
