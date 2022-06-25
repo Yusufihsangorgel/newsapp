@@ -14,7 +14,7 @@ class LoginController extends GetxController {
   var password = "1".obs;
   var isLogin = "0".obs;
   var showPassword = true.obs;
-  RxnString errorText = RxnString(null);
+  var errorText = RxnString(null);
   var getRegister = false.obs;
 
 

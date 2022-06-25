@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newsapp/app/feature/pages/login/controller/loginController.dart';
 import 'package:newsapp/app/feature/pages/login/model/userModel.dart';
-
-
+import 'package:newsapp/app/feature/widgets/buildText.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({Key? key}) : super(key: key);
@@ -12,42 +11,35 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              decoration: InputDecoration(label: Text("E mail")),
-              onChanged: (value) {
-                loginController.eMail.value = value;
-              },
-            ),
-            TextField(
-              decoration: InputDecoration(label: Text("password")),
-              onChanged: (value) {
-                loginController.password.value = value;
-              },
-            ),
-            TextButton(
-                onPressed: () {
-                  loginController.isLogin.value = "1";
-                  loginController.addUserLogin(UserLogin(
-                    phoneNumber: loginController.phoneNumber.value,
-                    nameSurname: loginController.nameSurname.value,
-                    isLogin: loginController.isLogin.value,
-                    email: loginController.eMail.value,
-                    password: loginController.password.value,
-                  ));
-                  debugPrint(loginController.eMail.value);
-                  debugPrint(loginController.password.value);
-                  debugPrint(
-                    loginController.isLogin.value.toString(),
-                  );
-                },
-                child: Text("Sign In"))
-          ],
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          // appBar: AppBar(),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              buildText("News"),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Container(
+                  height: Get.height * 0.05,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30), color: Colors.red),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                        suffixIcon:
+                            IconButton(onPressed: null, icon: Icon(Icons.search)),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.only(
+                            left: 15, bottom: 11, top: 11, right: 15),
+                        labelText: "Anan"),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

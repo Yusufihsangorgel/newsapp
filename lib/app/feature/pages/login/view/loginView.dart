@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:newsapp/app/feature/pages/login/controller/loginController.dart';
 import 'package:newsapp/app/feature/pages/login/model/userModel.dart';
 import 'package:newsapp/app/feature/pages/login/view/forgotView.dart';
+import 'package:newsapp/app/feature/widgets/buildImage.dart';
+import 'package:newsapp/app/feature/widgets/buildText.dart';
 import 'package:newsapp/app/feature/widgets/buildTextFormField.dart';
 import 'package:newsapp/app/feature/widgets/mySize.dart';
 
@@ -25,11 +27,11 @@ class LoginScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      buildImage(),
+                      BuildImage(image: "images/logo.png"),
                       const SizedBox(
                         height: 30,
                       ),
-                      buildWelcomeText(),
+                      buildText("HOŞ GELDİNİZ"),
                       const SizedBox(
                         height: 20,
                       ),
@@ -162,19 +164,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Text buildWelcomeText() {
-    return Text(
-      "HOŞ GELDİNİZ",
-      style: GoogleFonts.bebasNeue(
-          textStyle: const TextStyle(fontSize: 40, color: Colors.white)),
-    );
-  }
+  
 
-  Image buildImage() {
-    return Image.asset(
-      "images/logo.png",
-      height: 300,
-      fit: BoxFit.cover,
-    );
-  }
+ 
 }

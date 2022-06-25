@@ -49,7 +49,17 @@ class HomeController extends GetxController {
 
   void deleteFavoriteNews(News news) async {
     String? delId = news.sId;
-
+   
+    if(delId!.isEmpty){
+      Get.snackbar("Error", "Id is empty");
+    }
+    else {
+      await databaseHelper.delete(delId).then((value) {
+        if(value == 1){
+         Get.snackbar("Başarılı", "Başarıyla silindi");
+        }
+      });
+    }
  
     
   }

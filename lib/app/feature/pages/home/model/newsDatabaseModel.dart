@@ -65,6 +65,7 @@ class DatabaseHelperNews {
     Database? database = await this.database;
     var result = await database!.rawDelete("DELETE FROM $_tableName WHERE "
         "$_id = '$id'");
+        return result;
   }
 
   // Future<int> deleteUser(String id) async {
