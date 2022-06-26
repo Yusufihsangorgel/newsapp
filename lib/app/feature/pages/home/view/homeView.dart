@@ -12,10 +12,10 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Colors.blue,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.blue,
           // appBar: AppBar(),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -26,18 +26,31 @@ class HomeView extends StatelessWidget {
                 child: Container(
                   height: Get.height * 0.05,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30), color: Colors.red),
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.red),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                        suffixIcon:
-                            IconButton(onPressed: null, icon: Icon(Icons.search)),
+                        suffixIcon: IconButton(
+                            onPressed: null, icon: Icon(Icons.search)),
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.only(
                             left: 15, bottom: 11, top: 11, right: 15),
                         labelText: "Anan"),
                   ),
                 ),
-              )
+              ),
+              Expanded(
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: 10,
+                  itemBuilder: ((context, index) {
+                  return ListTile(
+                    title: Text("Selam"),
+                    subtitle: Text("Merhaba"),
+                    trailing: Text("huhu"),
+                  );
+                })),
+              ),
             ],
           ),
         ),
