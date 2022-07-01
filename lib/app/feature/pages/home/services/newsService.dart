@@ -11,21 +11,23 @@ class NewsServices extends HomeController {
   static Future<List<News>?> getNews() async {
     final HomeController homeController = Get.put(HomeController());
     var baseUrl = "https://free-news.p.rapidapi.com/v1/search";
-    var params = <String, String>{
-      'q': homeController.search.value,
-      'lang': homeController.lang.value
+    var params = {
+      'q': homeController.search.value.toString(),
+      'lang': homeController.lang.value.toString()
     };
     var headers = {
-      "x-rapidapi-host": "8ad5d90d72msh7bf606d6993cb80p1f5a9fjsn1242d0cc7448",
-      "x-rapidapi-key": "free-news.p.rapidapi.com"
+      "X-RapidAPI-Host": "8ad5d90d72msh7bf606d6993cb80p1f5a9fjsn1242d0cc7448",
+      "X-RapidAPI-Key": "free-news.p.rapidapi.com"
     };
 
     try {
+      print("girdi");
       var response = await dio.get(baseUrl,
           queryParameters: params, options: Options(headers: headers));
       print('News Info: ${response.data}');
       final jsonResponse = response.data;
       final news = jsonResponse['articles'] as List;
+      print(news.toString());
       return news.map((e) => News.fromJson(e)).toList();
     } on DioError catch (e) {
       // The request was made and the server responded with a status code

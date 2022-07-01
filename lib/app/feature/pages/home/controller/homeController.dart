@@ -6,7 +6,7 @@ import 'package:newsapp/app/feature/pages/home/services/newsService.dart';
 class HomeController extends GetxController {
   DatabaseHelperNews databaseHelper = DatabaseHelperNews();
   var search = "Elon Musk".obs;
-  var lang = "en".obs;
+  var lang = "tr".obs;
   var isLoading = true.obs;
   var isError = false.obs;
 
@@ -15,11 +15,11 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    // getApiNewsList();
     super.onInit();
   }
 
-  void getApiNewsList() async {
+  Future<void> getApiNewsList() async {
     isLoading(true);
     try {
       var news = await NewsServices.getNews();

@@ -56,6 +56,7 @@ class LoginController extends GetxController {
         if (userData != null) {
           Get.toNamed(AppRoutes.Home);
           Get.snackbar("Success", "Giriş Başarılı");
+          isLogin.value = "1";
         } else {
           Get.snackbar("Error", "User Not Found");
         }
