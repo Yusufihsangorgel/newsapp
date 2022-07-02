@@ -1,12 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
-
+import 'dart:convert';
 part 'newsModel.g.dart';
 
 @JsonSerializable()
 class News {
   String? title;
   String? author;
-  String? publishedDate;
+  DateTime? publishedDate;
   String? publishedDatePrecision;
   String? link;
   String? cleanUrl;
@@ -16,32 +16,33 @@ class News {
   String? topic;
   String? country;
   String? language;
-  List<String>? authors;
+  String? authors;
   String? media;
   bool? isOpinion;
   String? twitterAccount;
-  double? dScore;
-  String? sId;
+  double? score;
+  String? id;
 
-  News(
-      {this.title,
-      this.author,
-      this.publishedDate,
-      this.publishedDatePrecision,
-      this.link,
-      this.cleanUrl,
-      this.summary,
-      this.rights,
-      this.rank,
-      this.topic,
-      this.country,
-      this.language,
-      this.authors,
-      this.media,
-      this.isOpinion,
-      this.twitterAccount,
-      this.dScore,
-      this.sId});
+  News({
+    this.title,
+    this.author,
+    this.publishedDate,
+    this.publishedDatePrecision,
+    this.link,
+    this.cleanUrl,
+    this.summary,
+    this.rights,
+    this.rank,
+    this.topic,
+    this.country,
+    this.language,
+    this.authors,
+    this.media,
+    this.isOpinion,
+    this.twitterAccount,
+    this.score,
+    this.id,
+  });
 
   factory News.fromJson(Map<String, dynamic> json) => _$NewsFromJson(json);
 
@@ -53,7 +54,7 @@ class News {
     cleanUrl = json['clean_url'];
     summary = json['summary'];
     media = json['media'];
-    sId = json['_id'];
+    id = json['_id'];
   }
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -62,7 +63,46 @@ class News {
     data['clean_url'] = cleanUrl;
     data['summary'] = summary;
     data['media'] = media;
-    data['_id'] = sId;
+    data['_id'] = id;
     return data;
   }
 }
+
+// enum Country { IN, GB, US, NZ }
+
+// final countryValues = EnumValues(
+//     {"GB": Country.GB, "IN": Country.IN, "NZ": Country.NZ, "US": Country.US});
+
+// enum Language { EN }
+
+// final languageValues = EnumValues({"en": Language.EN});
+
+// enum PublishedDatePrecision { FULL, TIMEZONE_UNKNOWN }
+
+// final publishedDatePrecisionValues = EnumValues({
+//   "full": PublishedDatePrecision.FULL,
+//   "timezone unknown": PublishedDatePrecision.TIMEZONE_UNKNOWN
+// });
+
+// enum Topic { NEWS, WORLD, FINANCE, BUSINESS }
+
+// final topicValues = EnumValues({
+//   "business": Topic.BUSINESS,
+//   "finance": Topic.FINANCE,
+//   "news": Topic.NEWS,
+//   "world": Topic.WORLD
+// });
+
+// class EnumValues<T> {
+//   Map<String, T> map;
+//   late Map<T, String> reverseMap;
+
+//   EnumValues(this.map);
+
+//   Map<T, String> get reverse {
+//     if (reverseMap == null) {
+//       reverseMap = map.map((k, v) => new MapEntry(v, k));
+//     }
+//     return reverseMap;
+//   }
+// }

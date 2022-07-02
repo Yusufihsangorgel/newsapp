@@ -44,7 +44,7 @@ class HomeView extends StatelessWidget {
                 Expanded(
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: 10,
+                    itemCount: homeController.newsList.length,
                     itemBuilder: ((context, index) {
                     return NewsCard(homeController.newsList[index]);
                   })),

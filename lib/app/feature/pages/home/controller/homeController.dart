@@ -6,7 +6,7 @@ import 'package:newsapp/app/feature/pages/home/services/newsService.dart';
 class HomeController extends GetxController {
   DatabaseHelperNews databaseHelper = DatabaseHelperNews();
   var search = "Elon Musk".obs;
-  var lang = "tr".obs;
+  var lang = "en".obs;
   var isLoading = true.obs;
   var isError = false.obs;
 
@@ -48,7 +48,7 @@ class HomeController extends GetxController {
   }
 
   void deleteFavoriteNews(News news) async {
-    String? delId = news.sId;
+    String? delId = news.id;
    
     if(delId!.isEmpty){
       Get.snackbar("Error", "Id is empty");

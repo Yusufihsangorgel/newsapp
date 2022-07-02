@@ -16,19 +16,20 @@ class NewsServices extends HomeController {
       'lang': homeController.lang.value.toString()
     };
     var headers = {
-      "X-RapidAPI-Host": "8ad5d90d72msh7bf606d6993cb80p1f5a9fjsn1242d0cc7448",
-      "X-RapidAPI-Key": "free-news.p.rapidapi.com"
+      "X-RapidAPI-Host": "free-news.p.rapidapi.com",
+      "X-RapidAPI-Key": "8ad5d90d72msh7bf606d6993cb80p1f5a9fjsn1242d0cc7448"
     };
 
     try {
       print("girdi");
       var response = await dio.get(baseUrl,
           queryParameters: params, options: Options(headers: headers));
-      print('News Info: ${response.data}');
+      
       final jsonResponse = response.data;
       final news = jsonResponse['articles'] as List;
-      print(news.toString());
+      print('News Info: ${news}');
       return news.map((e) => News.fromJson(e)).toList();
+      
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
