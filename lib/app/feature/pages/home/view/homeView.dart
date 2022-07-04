@@ -4,20 +4,31 @@ import 'package:newsapp/app/feature/pages/home/controller/homeController.dart';
 import 'package:newsapp/app/feature/widgets/buildNewsCart.dart';
 import 'package:newsapp/app/feature/widgets/buildText.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   HomeView({Key? key}) : super(key: key);
 
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   final HomeController homeController = Get.put(HomeController());
 
   @override
+  void initState() {
+    homeController.getApiNewsList();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
+    return Obx(() => RefreshIndicator(
       onRefresh: homeController.getApiNewsList,
       child: Container(
         color: Colors.blue,
         child: SafeArea(
           child: Scaffold(
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.white,
             // appBar: AppBar(),
             body: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -29,7 +40,7 @@ class HomeView extends StatelessWidget {
                     height: Get.height * 0.05,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Colors.red),
+                        color: Colors.blueGrey),
                     child: TextFormField(
                       decoration: const InputDecoration(
                           suffixIcon: IconButton(
@@ -37,23 +48,31 @@ class HomeView extends StatelessWidget {
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.only(
                               left: 15, bottom: 11, top: 11, right: 15),
-                          labelText: "Anan"),
+                          labelText: "Search News"),
                     ),
                   ),
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: homeController.newsList.length,
-                    itemBuilder: ((context, index) {
-                    return NewsCard(homeController.newsList[index]);
-                  })),
-                ),
+                if (homeController.isLoading.isTrue)
+                  Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                if (homeController.isLoading.isFalse)
+                  Expanded(
+                    child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: homeController.newsList.length,
+                        itemBuilder: ((context, index) {
+                          return Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 10, right: 10, bottom: 15),
+                              child: NewsCard(homeController.newsList[index]));
+                        })),
+                  ),
               ],
             ),
           ),
         ),
       ),
-    );
+    ));
   }
 }

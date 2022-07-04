@@ -70,8 +70,10 @@ class ForgotScreen extends StatelessWidget {
                             ElevatedButton(
                               child: const Text("Doğrulama postası gönder"),
                               onPressed: () {
-                                buildSnackBar("Başarılı!",
-                                    "Doğrulama E postası başarıyla gönderildi");
+                                snackbar(
+                                    "Başarılı",
+                                    "Doğrulama E postası başarıyla gönderildi",
+                                    null);
                               },
                             ),
                             TextButton(

@@ -9,15 +9,17 @@ class HomeController extends GetxController {
   var lang = "en".obs;
   var isLoading = true.obs;
   var isError = false.obs;
-
+  var firstTry = false.obs;
   var newsList = <News>[].obs;
   var favoriteNewsList = <News>[].obs;
 
   @override
   void onInit() {
-    // getApiNewsList();
+
     super.onInit();
   }
+
+  
 
   Future<void> getApiNewsList() async {
     isLoading(true);
